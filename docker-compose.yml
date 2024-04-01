@@ -6,7 +6,7 @@ services:
     container_name: Postgres_HotelListing
     restart: always
     environment:
-      POSTGRES_DB: hotel-listing-api
+      POSTGRES_DB: hotellisting-api
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 1234
     ports:

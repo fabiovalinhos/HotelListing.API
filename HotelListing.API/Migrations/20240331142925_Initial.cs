@@ -1,12 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
+
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
 namespace HotelListing.API.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,9 +16,8 @@ namespace HotelListing.API.Migrations
                 name: "Countries",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: true),
+                    Id = table.Column<int>(type: "integer", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
                     ShortName = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
@@ -29,11 +29,10 @@ namespace HotelListing.API.Migrations
                 name: "Hotels",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: true),
+                    Id = table.Column<int>(type: "integer", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
                     Address = table.Column<string>(type: "text", nullable: true),
-                    Rating = table.Column<string>(type: "text", nullable: true),
+                    Rating = table.Column<double>(type: "double precision", nullable: false),
                     CountryId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
@@ -45,6 +44,26 @@ namespace HotelListing.API.Migrations
                         principalTable: "Countries",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Countries",
+                columns: new[] { "Id", "Name", "ShortName" },
+                values: new object[,]
+                {
+                    { 1, "Jamaica", "JM" },
+                    { 2, "Brasil", "BR" },
+                    { 3, "Estados Unidos", "US" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Hotels",
+                columns: new[] { "Id", "Address", "CountryId", "Name", "Rating" },
+                values: new object[,]
+                {
+                    { 1, "Negril", 1, "Sandals Resort and Spa", 4.5 },
+                    { 2, "Guarujá Cidade", 2, "Guaruja Hotel", 3.5 },
+                    { 3, "New York", 3, "Tower Power", 5.0 }
                 });
 
             migrationBuilder.CreateIndex(

@@ -11,8 +11,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HotelListing.API.Migrations
 {
     [DbContext(typeof(HotelListingDbContext))]
-    [Migration("20240327162957_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20240331142925_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,12 +27,10 @@ namespace HotelListing.API.Migrations
             modelBuilder.Entity("HotelListing.API.Data.Country", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("ShortName")
@@ -41,15 +39,32 @@ namespace HotelListing.API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Countries");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Jamaica",
+                            ShortName = "JM"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Brasil",
+                            ShortName = "BR"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Estados Unidos",
+                            ShortName = "US"
+                        });
                 });
 
             modelBuilder.Entity("HotelListing.API.Data.Hotel", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Address")
                         .HasColumnType("text");
@@ -58,16 +73,43 @@ namespace HotelListing.API.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Rating")
-                        .HasColumnType("text");
+                    b.Property<double>("Rating")
+                        .HasColumnType("double precision");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CountryId");
 
                     b.ToTable("Hotels");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "Negril",
+                            CountryId = 1,
+                            Name = "Sandals Resort and Spa",
+                            Rating = 4.5
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Address = "Guarujá Cidade",
+                            CountryId = 2,
+                            Name = "Guaruja Hotel",
+                            Rating = 3.5
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Address = "New York",
+                            CountryId = 3,
+                            Name = "Tower Power",
+                            Rating = 5.0
+                        });
                 });
 
             modelBuilder.Entity("HotelListing.API.Data.Hotel", b =>
