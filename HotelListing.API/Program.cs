@@ -10,9 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("HotelListingDbConnectionString");
 builder.Services.AddDbContext<HotelListingDbContext>(
     options => 
-        options.UseNpgsql(connectionString),
-        ServiceLifetime.Transient,
-        ServiceLifetime.Transient
+        options.UseNpgsql(connectionString)
 );
 
 builder.Services.AddControllers();
