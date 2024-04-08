@@ -14,41 +14,6 @@ namespace HotelListing.API.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Hotel>(entity =>
-                        {
-                            // Configuração da chave primária
-                            entity.HasKey(e => e.Id);
-
-                            // Configuração da propriedade Name como obrigatória
-                            entity.Property(e => e.Name).IsRequired();
-                            
-
-                            // Configurações adicionais, se necessário
-                            // ...
-
-                            // Configuração da relação com Country (opcional)
-                            // Nesse caso, a configuração da relação já foi definida no modelo Country
-                            // No entanto, você pode adicionar configurações adicionais aqui, se necessário
-                        });
-
-
-            modelBuilder.Entity<Country>(entity =>
-               {
-                   // Configuração da chave primária
-                   entity.HasKey(e => e.Id);
-
-                   // Configuração da propriedade Name como obrigatória
-                   entity.Property(e => e.Name).IsRequired();
-
-                   // Configurações adicionais, se necessário
-                   // ...
-
-                   // Configuração da relação com Hotel
-                   entity.HasMany(c => c.Hotels)
-                         .WithOne(h => h.Country)
-                         .HasForeignKey(h => h.CountryId)
-                         .OnDelete(DeleteBehavior.Cascade); // Defina o comportamento de exclusão adequado aqui, se necessário
-               });
 
             modelBuilder.Entity<Country>().HasData(
                 new Country()
