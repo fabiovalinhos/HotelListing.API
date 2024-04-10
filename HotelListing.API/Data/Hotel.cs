@@ -5,7 +5,7 @@ namespace HotelListing.API.Data
 {
     public class Hotel
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [Required]
