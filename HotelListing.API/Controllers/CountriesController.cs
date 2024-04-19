@@ -41,7 +41,7 @@ namespace HotelListing.API.Controllers
                 return NotFound();
             }
 
-            var countryDto =  _mapper.Map<CountryDto>(country);
+            var countryDto = _mapper.Map<CountryDto>(country);
 
             return Ok(countryDto);
         }
@@ -56,7 +56,15 @@ namespace HotelListing.API.Controllers
                 return BadRequest("Invalid record ID");
             }
 
-            _context.Entry(updateCountryDto).State = EntityState.Modified;5:21
+            // _context.Entry(country).State = EntityState.Modified;
+            var country = await _context.Countries.FindAsync(id);
+
+            if (country == null)
+            {
+                return NotFound();
+            }
+
+            _mapper.Map(updateCountryDto,country);
 
             try
             {
