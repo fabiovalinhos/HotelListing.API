@@ -15,7 +15,6 @@ namespace HotelListing.API.Data
         {
             base.OnModelCreating(modelBuilder);
 
-
             modelBuilder.Entity<Country>().HasData(
                 new Country()
                 {
