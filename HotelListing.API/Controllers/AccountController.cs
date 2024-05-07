@@ -33,7 +33,7 @@ namespace HotelListing.API.Controllers
                 return BadRequest(ModelState);
             }
 
-            return Ok();8:03
+            return Ok();
         }
     }
 }
