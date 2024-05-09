@@ -24,13 +24,22 @@ namespace HotelListing.API.Repository
             try
             {
                 var user = await _userManager.FindByEmailAsync(loginDto.Email);
+                if (user is null)
+                {
+                    return default;
+                }
+
                 isValidUser = await _userManager.CheckPasswordAsync(user, loginDto.Password);
+                if (!isValidUser)
+                {
+                    return default;
+                }
             }
             catch (Exception ex)
             {
             }
 
-            return isValidUser; 7:40
+            return isValidUser;
         }
 
         public async Task<IEnumerable<IdentityError>> Register(ApiUserDto userDto)
