@@ -91,6 +91,6 @@ namespace HotelListing.API.Repository
             );
 
             return new JwtSecurityTokenHandler().WriteToken(token);
-        }
+        }15:26
     }
 }
