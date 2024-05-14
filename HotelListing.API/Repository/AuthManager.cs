@@ -23,29 +23,25 @@ namespace HotelListing.API.Repository
             this._configuration = configuration;
         }
 
-        public async Task<bool> Login(LoginDto loginDto)
+        public async Task<AuthResponseDto> Login(LoginDto loginDto)
         {
-            bool isValidUser = false;
+            var user =
+                await _userManager.FindByEmailAsync(loginDto.Email);
+            bool isValidUser =
+                 await _userManager.CheckPasswordAsync(user, loginDto.Password);
 
-            try
+            if (user == null || isValidUser == false)
             {
-                var user = await _userManager.FindByEmailAsync(loginDto.Email);
-                if (user is null)
-                {
-                    return default;
-                }
-
-                isValidUser = await _userManager.CheckPasswordAsync(user, loginDto.Password);
-                if (!isValidUser)
-                {
-                    return default;
-                }
-            }
-            catch (Exception ex)
-            {
+                return null;
             }
 
-            return isValidUser;
+            var token = await GenerateToken(user);
+
+            return new AuthResponseDto
+            {
+                Token = token,
+                UserId = user.Id
+            };
         }
 
         public async Task<IEnumerable<IdentityError>> Register(ApiUserDto userDto)
@@ -91,6 +87,6 @@ namespace HotelListing.API.Repository
             );
 
             return new JwtSecurityTokenHandler().WriteToken(token);
-        }15:26
+        }
     }
 }
