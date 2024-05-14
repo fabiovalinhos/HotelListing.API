@@ -54,6 +54,6 @@ namespace HotelListing.API.Controllers
             }
 
             return Ok(authResponse);
-        }19:55
+        }
     }
 }

@@ -43,6 +43,9 @@ namespace HotelListing.API.Repository
                 UserId = user.Id
             };
         }
+        // usuário teste
+        //         "email": "fabiovalinhos@teste.com",
+        //   "password": "Cebol@7355",
 
         public async Task<IEnumerable<IdentityError>> Register(ApiUserDto userDto)
         {
