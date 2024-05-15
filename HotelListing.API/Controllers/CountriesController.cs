@@ -90,7 +90,7 @@ namespace HotelListing.API.Controllers
         // POST: api/Countries
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        [Authorize]4:56
+        [Authorize]
         public async Task<ActionResult<Country>> PostCountry(CreateCountryDto createCountry)
         {
             var country = _mapper.Map<Country>(createCountry);
@@ -119,6 +119,6 @@ namespace HotelListing.API.Controllers
         private async Task<bool> CountryExists(int id)
         {
             return await _countriesRepository.Exists(id);
-        }
+        }6:58
     }
 }
