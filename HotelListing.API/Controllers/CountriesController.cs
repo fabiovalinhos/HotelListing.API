@@ -102,7 +102,7 @@ namespace HotelListing.API.Controllers
 
         // DELETE: api/Countries/5
         [HttpDelete("{id}")]
-        [Authorize]
+        [Authorize (Roles ="Administrator")]
         public async Task<IActionResult> DeleteCountry(int id)
         {
             var country = await _countriesRepository.GetAsync(id);
@@ -119,6 +119,6 @@ namespace HotelListing.API.Controllers
         private async Task<bool> CountryExists(int id)
         {
             return await _countriesRepository.Exists(id);
-        }6:58
+        }
     }
 }
