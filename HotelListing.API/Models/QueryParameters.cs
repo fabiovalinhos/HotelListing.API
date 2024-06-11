@@ -18,6 +18,5 @@ namespace HotelListing.API.Models
                 _pageSize = value;
             }
         }
-
     }
 }
