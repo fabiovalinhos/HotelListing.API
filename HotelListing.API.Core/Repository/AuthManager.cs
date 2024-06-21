@@ -45,6 +45,9 @@ namespace HotelListing.API.Core.Repository
             return newRefreshToken;
         }
 
+        // usuário teste
+        //   "email": "fabiovalinhos@teste.com",
+        //   "password": "Cebol@7355",
         public async Task<AuthResponseDto> Login(LoginDto loginDto)
         {
             _logger.LogInformation($"Looking for user with email {loginDto.Email}");
@@ -69,9 +72,6 @@ namespace HotelListing.API.Core.Repository
                 RefreshToken = await CreateRefreshToken()
             };
         }
-        // usuário teste
-        //         "email": "fabiovalinhos@teste.com",
-        //   "password": "Cebol@7355",
 
         public async Task<IEnumerable<IdentityError>> Register(ApiUserDto userDto)
         {

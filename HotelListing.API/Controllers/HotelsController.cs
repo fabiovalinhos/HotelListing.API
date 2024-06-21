@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using HotelListing.API.Data;
 using HotelListing.API.Core.Contracts;
 using AutoMapper;
 using HotelListing.API.Core.Models.Hotel;
@@ -24,10 +23,10 @@ namespace HotelListing.API.Controllers
         }
 
         // GET: api/Hotels
-        [HttpGet]
+        [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<HotelDto>>> GetHotels()
         {
-            var hotels = await _hotelsRepository.GetAllAsync<List<HotelDto>>();
+            var hotels = await _hotelsRepository.GetAllAsync<HotelDto>();
             return Ok(hotels);
         }
 
@@ -68,16 +67,9 @@ namespace HotelListing.API.Controllers
                 return BadRequest();
             }
 
-            var hotel = await _hotelsRepository.GetAsync(id);
-            if (hotel is null)
-            {
-                return NotFound();
-            }
-            _mapper.Map(hotelDto, hotel);
-
             try
             {
-                await _hotelsRepository.UpdateAsync(hotel);
+                await _hotelsRepository.UpdateAsync(id, hotelDto);
             }
             catch (DbUpdateConcurrencyException)
             {

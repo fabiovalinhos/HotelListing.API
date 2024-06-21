@@ -1,13 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using HotelListing.API.Data;
 using HotelListing.API.Core.Models.Country;
 using AutoMapper;
 using HotelListing.API.Core.Contracts;
 using Microsoft.AspNetCore.Authorization;
-using HotelListing.API.Core.Exceptions;
 using HotelListing.API.Core.Models;
-using System.Data.Common;
 
 namespace HotelListing.API.Controllers
 {
@@ -55,7 +52,7 @@ namespace HotelListing.API.Controllers
         {
             var country = await _countriesRepository.GetDetails(id);
 
-            return Ok(country);
+            return Ok(_mapper.Map<CountryDto>(country));
         }
 
         // PUT: api/Countries/5
