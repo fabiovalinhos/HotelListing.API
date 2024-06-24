@@ -11,7 +11,8 @@ namespace HotelListing.API.Core.Middleware
         private readonly RequestDelegate _next;
         public ILogger<ExceptionMiddleware> _logger { get; }
 
-        public ExceptionMiddleware(RequestDelegate next,
+        public ExceptionMiddleware(
+            RequestDelegate next,
         ILogger<ExceptionMiddleware> logger)
         {
             this._logger = logger;
@@ -56,7 +57,7 @@ namespace HotelListing.API.Core.Middleware
             string response = JsonConvert.SerializeObject(errorDetails);
             context.Response.StatusCode = (int)statusCode;
 
-           return context.Response.WriteAsync(response);
+            return context.Response.WriteAsync(response);
         }
     }
 
